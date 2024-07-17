@@ -1,0 +1,297 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.png">
+    <title>东软环保公众监督大数据监控平台</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/china.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="js/Bubble.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="head clearfix">
+
+
+    <h1 class="pulll_left">东软环保公众监督大数据监控平台</h1>
+    <div class="menu menu2 pulll_left">
+        <ul>
+            <li><a href="http://localhost:5173/login">移动端入口</a></li>
+            <li><a href="http://localhost:5173/login">管理端入口</a></li>
+        </ul>
+    </div>
+
+    <div class="time" id="showTime">2024/1/1 00:00:00</div>
+    <script>
+        var t = null;
+        t = setTimeout(time, 1000);//開始运行
+        function time() {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours();//获取时
+            var m = dt.getMinutes();//获取分
+            var s = dt.getSeconds();//获取秒
+            document.getElementById("showTime").innerHTML = y + "/" + mt + "/" + day + " " + h + ":" + m + ":" + s + "";
+            t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+
+    </script>
+</div>
+<div class="mainbox">
+
+    <ul class="clearfix nav1">
+        <li style="width: 22%">
+            <div class="box">
+                <div class="tit">污染物变化</div>
+                <div class="boxnav" style="height: 200px;">
+                    <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <th>污染物类型</th>
+                            <th>昨天平均</th>
+                            <th>今日平均</th>
+                            <th>增长率</th>
+                        </tr>
+                        <tr>
+                            <td>CO浓度 (mg/m³)</td>
+                            <td><span class="text-w">20</span></td>
+                            <td><span class="text-b">22</span></td>
+                            <td>
+                                <div class="text-d">↑10%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SO₂浓度 (µg/m³)</td>
+                            <td><span class="text-w">50</span></td>
+                            <td><span class="text-b">40</span></td>
+                            <td>
+                                <div class="text-s">↓20%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPM浓度 (µg/m³)</td>
+                            <td><span class="text-w">37</span></td>
+                            <td><span class="text-b">41</span></td>
+                            <td>
+                                <div class="text-d">↑12%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>空气AQI指数</td>
+                            <td><span class="text-w">64</span></td>
+                            <td><span class="text-b">56</span></td>
+                            <td>
+                                <div class="text-s">↓12%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>空气AQI等级</td>
+                            <td><span class="text-w">1</span></td>
+                            <td><span class="text-b">0</span></td>
+                            <td>
+                                <div class="text-s">↓100%</div>
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="tit">任务完成情况</div>
+                <div class="boxnav" style="height: 250px;">
+                    <div class="" style="height: 190px" id="echart1"></div>
+                    <div class="leidanav">
+                        <ul class="clearfix">
+                            <li><span>未完成</span>
+                                <p>43</p></li>
+                            <li><span>已完成</span>
+                                <p>200</p></li>
+                            <li><span>接受跨域</span>
+                                <p>28</p></li>
+                            <li><span>拒绝跨域</span>
+                                <p>3</p></li>
+                            <li><span>完成跨域</span>
+                                <p>150</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li style="width: 56%">
+
+            <div class="box">
+                <div class="boxnav mapc" style="height: 550px; position: relative">
+                    <div class="mapnav">
+                        <ul>
+                            <li>
+                                <div><span>累计反馈</span>
+                                    <p>124</p></div>
+                            </li>
+                            <li>
+                                <div><span>累计确认</span>
+                                    <p>112</p></div>
+                            </li>
+                            <li>
+                                <div><span>反馈信息指派率</span>
+                                    <p>100%</p></div>
+                            </li>
+                            <li>
+                                <div><span>任务完成率</span>
+                                    <p>90%</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mapnav2">
+
+                        <div class="box">
+                            <div class="tit">网格覆盖数</div>
+                            <div class="boxnav" style="height: 130px;" id="sysx">
+
+
+                            </div>
+                            <div class="leidanav leidanav3" style="margin-bottom: 15px;">
+                                <ul class="clearfix">
+                                    <li><span>覆盖省份</span>
+                                        <p>21</p></li>
+                                    <li><span>覆盖城市</span>
+                                        <p>34</p></li>
+                                    <li><span>覆盖网格</span>
+                                        <p>56</p></li>
+                                    <li><span>覆盖率</span>
+                                        <p>18%</p></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="map" id="map"></div>
+
+                    <script>
+                        $(".mapbtn a").hover(function () {
+                            var ind = $(this).index()
+                            $(".mapnav ul").eq(ind).show().siblings().hide()
+                        })
+                    </script>
+                </div>
+            </div>
+
+        </li>
+        <li style="width: 22%">
+
+            <div class="box">
+                <div class="tit">空气质量变化</div>
+                <div class="boxnav" id="echart3" style="height: 200px;">
+
+                </div>
+            </div>
+            <div class="box">
+                <div class="tit">热门反馈</div>
+                <div class="boxnav" style="height: 250px;">
+                    <div style="height: 200px; float: left; width: 40%; padding: 0 5px;">
+                        <div class="tit02 text-b">热门话题榜</div>
+                        <div class="huati">
+                            <ul>
+                                <li>1.空气质量 <span class="text-s">↑314</span></li>
+                                <li>2.环境保护 <span class="text-s">↑135</span></li>
+                                <li>3.服务迅速 <span class="text-s">↑56</span></li>
+                                <li>4.空气不好 <span class="text-d">↓83</span></li>
+                                <li>5.确认时间长 <span class="text-d">↓67</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="height: 200px; float: left; width: 60%">
+
+                        <div class="text-b tit02" style="text-align: center;">关键词 — 云</div>
+                        <div class="tagcloud">
+                            <!-- bo大小 co颜色 -->
+                            <a class="b01 co01" href="https://baike.baidu.com/item/环保/278373">环保</a>
+                            <a class="b02 co02"
+                               href="https://baike.baidu.com/item/空气污染指数/63563?fr=ge_ala">AQI指数</a>
+                            <a class="b03 co05"
+                               href="https://baike.baidu.com/item/细颗粒物?fromModule=lemma_search-box">PM2.5</a>
+                            <a class="b04 co02" href="https://baike.baidu.com/item/大数据/1356941">大数据</a>
+                            <a class="b03 co05" href="https://baike.baidu.com/item/污染物?fromModule=lemma_search-box">污染物</a>
+                        </div>
+                        <script type="text/javascript">
+                            /*3D标签云*/
+                            tagcloud({
+                                selector: ".tagcloud",  //元素选择器
+                                fontsize: 6,       //基本字体大小, 单位px
+                                radius: 40,         //滚动半径, 单位px 页面宽度和高度的五分之一
+                                mspeed: "slow",   //滚动最大速度, 取值: slow, normal(默认), fast
+                                ispeed: "slow",   //滚动初速度, 取值: slow, normal(默认), fast
+                                direction: 0,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+                                keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+
+    <div class="box" style="padding: 20px 0;">
+        <ul class="clearfix nav2 ">
+            <li style="width:25%">
+                <div class="tit01">人员构成</div>
+                <div style="float: left; width: 50%; height: 170px" id="fb01"></div>
+                <div style="float: left; width: 50%; height: 170px" id="fb02"></div>
+                <div class="leidanav leidanav2">
+                    <ul class="clearfix">
+                        <li><span>总人数</span>
+                            <p>128</p></li>
+                        <li><span>男性</span>
+                            <p>100</p></li>
+                        <li><span>女性</span>
+                            <p>28</p></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li style="width:25%">
+                <div class="tit01">任务完成率变化</div>
+                <div class="ftechart" id="echart4"></div>
+            </li>
+            <li style="width:25%">
+                <div class="tit01">积压反馈任务</div>
+                <div class="" style="height:100%;display: flex; align-items: center;">
+                    <div style="float: left; width: 50%; height: 100%" class="wancheng">
+                        <div><span>已完成任务数</span>
+                            <h3>350<i>件</i></h3></div>
+                        <div class="yuan">
+                            <span>19%</span>
+                        </div>
+                    </div>
+                    <div style="float: left; width: 50%; height: 50%" id="myd1"></div>
+
+
+                </div>
+
+            </li>
+            <li style="width:25%">
+                <div class="tit01">网格员状态</div>
+
+                <div class="" id="">
+                    <div style="float: left; width: 50%; height: 200px" id="fb03"></div>
+                    <div style="float: left; width: 50%; height: 200px" id="fb04"></div>
+
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+</body>
+</html>
