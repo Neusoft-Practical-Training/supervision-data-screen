@@ -236,7 +236,7 @@ $(function () {
                 }
             },
             legend: {
-                data: ['2017年', '2018年'],
+                data: ['本地指派', '异地指派'],
                 top: '5%',
                 textStyle: {
                     color: "#fff",
@@ -306,7 +306,7 @@ $(function () {
                 }
             }],
             series: [{
-                name: '2017年',
+                name: '本地指派',
                 type: 'line',
                 smooth: true,
                 data: [2, 6, 3, 8, 5, 8],
@@ -320,7 +320,7 @@ $(function () {
                     }
                 }
             }, {
-                name: '2018年',
+                name: '异地指派',
                 type: 'line',
                 smooth: true,
                 data: [5, 2, 6, 4, 5, 12],
